@@ -2,6 +2,9 @@
     "targets": [
         {
             "target_name": "screenshot",
+            "include_dirs": [
+                "<!@(node -p \"require('node-addon-api').include\")"
+            ],
             "conditions": [
                 ['OS=="linux"', {
                     "sources": ["src/linux/screenshot_linux.cpp", "src/linux/prtscn_linux.c"],

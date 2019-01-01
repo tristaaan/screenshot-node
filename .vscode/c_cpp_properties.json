@@ -4,6 +4,7 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/node_modules/node-addon-api",
                 "/usr/local/Cellar/node/11.6.0/include/node"
             ],
             "defines": [],
