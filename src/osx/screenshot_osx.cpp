@@ -1,5 +1,6 @@
 #include <node_api.h>
 #include "prtscn_osx.h"
+#include <iostream>
 
 napi_value Screenshot(napi_env env, napi_callback_info info)
 {
@@ -67,6 +68,7 @@ napi_value Screenshot(napi_env env, napi_callback_info info)
   status = napi_call_function(env, global, args[4], 1, argv, nullptr);
   assert(status == napi_ok);
 
+  std::cout<< image_ref << std::endl;
   return nullptr;
 }
 

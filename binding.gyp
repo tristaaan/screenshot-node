@@ -19,7 +19,7 @@
                             '-ObjC++'
                         ]
                     },
-                    "sources": ["src/osx/screenshot_osx.cpp", "src/osx/prtscn_osx.mm"],
+                    "sources": ["src/osx/screenshot_osx.cpp", "src/osx/prtscn_osx.cpp"],
                     "link_settings": {
                         "libraries": [
                             "-framework CoreGraphics",
