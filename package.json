@@ -8,7 +8,14 @@
     "url": "https://github.com/Kuzat/screenshot-node.git"
   },
   "scripts": {
-    "install": "node-gyp rebuild"
+    "install": "node-gyp rebuild",
+    "configure": "node-gyp configure",
+    "start": "node index.js",
+    "build:dev": "node-gyp build --debug",
+    "build": "node-gyp build",
+    "rebuild:dev": "node-gyp rebuild --debug",
+    "rebuild": "node-gyp rebuild",
+    "clean": "node-gyp clean"
   },
   "keywords": [
     "native",

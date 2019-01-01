@@ -1,40 +1,80 @@
-#include <nan.h>
+#include <node_api.h>
 #include "prtscn_osx.h"
-#include <stdlib.h>
 
-using namespace v8;
+napi_value Screenshot(napi_env env, napi_callback_info info)
+{
+  napi_status status;
 
-void Method(const FunctionCallbackInfo<Value>& args) {
-	Isolate* isolate = args.GetIsolate();
+  size_t argc = 5;
+  napi_value args[5];
+  status = napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+  assert(status == napi_ok);
+  if (argc < 5)
+  {
+    napi_throw_type_error(env, nullptr, "Wrong number of arguments");
+    return nullptr;
+  }
 
+  napi_valuetype args0type;
+  status = napi_typeof(env, args[0], &args0type);
+  assert(status == napi_ok);
 
-	// Check number of arguments passed
-	if (args.Length() < 5) {
-		isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong number of arguments")));
-		return;
-	}
+  napi_valuetype args1type;
+  status = napi_typeof(env, args[1], &args1type);
+  assert(status == napi_ok);
 
-	//Check the argument types
-	if (!args[0]->IsNumber() || !args[1]->IsNumber() || !args[2]->IsNumber() || !args[3]->IsNumber()) {
-		isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong arguments")));
-		return;
-	}
+  napi_valuetype args2type;
+  status = napi_typeof(env, args[2], &args2type);
+  assert(status == napi_ok);
 
-	int x = args[0]->NumberValue();
-	int y = args[1]->NumberValue();
-	int width =  args[2]->NumberValue();
-	int height = args[3]->NumberValue();
+  napi_valuetype args3type;
+  status = napi_typeof(env, args[3], &args3type);
+  assert(status == napi_ok);
 
-	getScreen(x, y, width, height, *String::Utf8Value(args[4]));
+  napi_valuetype args4type;
+  status = napi_typeof(env, args[4], &args4type);
+  assert(status == napi_ok);
 
-	//Performe the operation
-	Local<Function> cb = Local<Function>::Cast(args[5]);
-	Local<Value> argv[1] = {Null(isolate)};
-	cb->Call(Null(isolate), 1, argv);
+  if (args0type != napi_number || args1type != napi_number || args2type != napi_number || args3type != napi_number || args4type != napi_function)
+  {
+    napi_throw_type_error(env, nullptr, "Wrong arguments");
+    return nullptr;
+  }
+
+  int x;
+  status = napi_get_value_int32(env, args[0], &x);
+  assert(status == napi_ok);
+
+  int y;
+  status = napi_get_value_int32(env, args[1], &y);
+  assert(status == napi_ok);
+
+  int width;
+  status = napi_get_value_int32(env, args[2], &width);
+  assert(status == napi_ok);
+
+  int height;
+  status = napi_get_value_int32(env, args[3], &height);
+  assert(status == napi_ok);
+
+  napi_value global;
+  status = napi_get_global(env, &global);
+  assert(status == napi_ok);
+
+  napi_value argv[2];
+  CGImageRef image_ref = getScreen(x, y, width, height);
+
+  status = napi_call_function(env, global, args[4], 1, argv, nullptr);
+  assert(status == napi_ok);
+
+  return nullptr;
 }
 
-void Init(Local<Object> exports, Local<Object> module) {
-	NODE_SET_METHOD(module, "exports", Method);
+napi_value Init(napi_env env, napi_value exports)
+{
+  napi_status status = napi_create_function(env, nullptr, NAPI_AUTO_LENGTH, Screenshot, nullptr, &exports);
+  assert(status == napi_ok);
+  return exports;
 }
 
-NODE_MODULE(screenshot, Init)
+NAPI_MODULE(NODE_GYP_MODULE_NAME, Init)

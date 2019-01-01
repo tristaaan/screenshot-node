@@ -1,8 +1,9 @@
-const addon = require('./build/Release/screenshot');
-const fs = require('fs');
+const addon = require('./build/Debug/screenshot')
 
-module.exports.saveScreenshot = (x, y, width, heigth, path, callback) => {
-	addon(x, y, width, heigth, path, (msg) => {
-		callback(msg)
-	});
-};
+console.log(
+  'This should be eight:',
+  addon(3, 5, 4, 5, (...args) => {
+    console.log('asdasdas', ...args)
+	return 30
+  })
+)

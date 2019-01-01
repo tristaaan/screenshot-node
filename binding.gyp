@@ -2,9 +2,6 @@
     "targets": [
         {
             "target_name": "screenshot",
-            "include_dirs": [
-                "<!(node -e \"require('nan')\")"
-            ],
             "conditions": [
                 ['OS=="linux"', {
                     "sources": ["src/linux/screenshot_linux.cpp", "src/linux/prtscn_linux.c"],

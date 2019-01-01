@@ -1,5 +1,6 @@
 const screenshot = require('./index');
 
-screenshot.saveScreenshot(0, 0, 0, 0, 'test.png', (err) => {
+const a = screenshot(0, 0, 0, 0, (err) => {
 	if (err) console.log(err);
 })
+console.log(a)
