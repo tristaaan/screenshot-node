@@ -6,7 +6,7 @@
         {
             "label": "build",
             "type": "npm",
-            "script": "build:dev",
+            "script": "debug",
             "problemMatcher": []
         }
     ]

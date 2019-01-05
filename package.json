@@ -10,6 +10,7 @@
   "scripts": {
     "install": "node-gyp rebuild",
     "configure": "node-gyp configure",
+    "debug": "npm run clean && npm run configure && npm run build:dev",
     "start": "node index.js",
     "build:dev": "node-gyp build --debug",
     "build": "node-gyp build",

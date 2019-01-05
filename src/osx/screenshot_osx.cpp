@@ -21,11 +21,16 @@ Napi::Value Screenshot(const Napi::CallbackInfo &info)
   int y = info[1].As<Napi::Number>().Int32Value();
   int width = info[2].As<Napi::Number>().Int32Value();
   int height = info[3].As<Napi::Number>().Int32Value();
+
   Napi::Function cb = info[4].As<Napi::Function>();
 
-  CGImageRef image_ref = getScreen(x, y, width, height);
+  Napi::Value buf = getScreen(x, y, width, height, env);
 
-  cb.Call(env.Global(), {Napi::Number::New(env, x), Napi::Number::New(env, y), Napi::Number::New(env, width), Napi::Number::New(env, height), cb});
+  char *k = "123撒打算";
+
+	Napi::Value buf2 = Napi::Buffer<char>::New(env, k, strlen(k));
+
+  cb.Call(env.Global(), {buf2});
 
   return env.Null();
 }
