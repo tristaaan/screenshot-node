@@ -1,17 +1,17 @@
 #include <napi.h>
 #include "prtscn_osx.h"
 
-Napi::Value Screenshot(const Napi::CallbackInfo &info)
+Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
 {
   Napi::Env env = info.Env();
 
-  if (info.Length() < 5)
+  if (info.Length() < 4)
   {
     Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
     return env.Null();
   }
 
-  if (!info[0].IsNumber() || !info[1].IsNumber() || !info[2].IsNumber() || !info[3].IsNumber() || !info[4].IsFunction())
+  if (!info[0].IsNumber() || !info[1].IsNumber() || !info[2].IsNumber() || !info[3].IsNumber())
   {
     Napi::TypeError::New(env, "Wrong arguments").ThrowAsJavaScriptException();
     return env.Null();
@@ -22,18 +22,15 @@ Napi::Value Screenshot(const Napi::CallbackInfo &info)
   int width = info[2].As<Napi::Number>().Int32Value();
   int height = info[3].As<Napi::Number>().Int32Value();
 
-  Napi::Function cb = info[4].As<Napi::Function>();
-
   const char *base64 = getScreen(x, y, width, height);
 
-  cb.Call(env.Global(), {Napi::String::New(env, base64)});
-
-  return env.Null();
+  return Napi::String::New(env, base64);
 }
 
 Napi::Object Init(Napi::Env env, Napi::Object exports)
 {
-  return Napi::Function::New(env, Screenshot);
+  exports.Set(Napi::String::New(env, "getScreenshotSync"), Napi::Function::New(env, getScreenshotSync));
+  return exports;
 }
 
 NODE_API_MODULE(addon, Init)
