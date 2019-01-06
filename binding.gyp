@@ -25,10 +25,7 @@
                     "sources": ["src/osx/screenshot_osx.cpp", "src/osx/prtscn_osx.m"],
                     "link_settings": {
                         "libraries": [
-                            "-framework CoreGraphics",
-                            "-framework CoreServices",
-                            "-framework ImageIO",
-                            "-framework Foundation"
+                            "-framework CoreServices"
                         ]
                     }
                 }],

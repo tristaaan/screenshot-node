@@ -1,6 +1,5 @@
-#include <ImageIO/ImageIO.h>
 #include <Foundation/Foundation.h>
-#include <CoreGraphics/CoreGraphics.h>
+#include <CoreServices/CoreServices.h>
 #include "prtscn_osx.h"
 
 // CGImageRef转换为NSData
