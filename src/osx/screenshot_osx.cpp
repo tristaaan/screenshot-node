@@ -24,13 +24,9 @@ Napi::Value Screenshot(const Napi::CallbackInfo &info)
 
   Napi::Function cb = info[4].As<Napi::Function>();
 
-  Napi::Value buf = getScreen(x, y, width, height, env);
+  const char *base64 = getScreen(x, y, width, height);
 
-  char *k = "123撒打算";
-
-	Napi::Value buf2 = Napi::Buffer<char>::New(env, k, strlen(k));
-
-  cb.Call(env.Global(), {buf2});
+  cb.Call(env.Global(), {Napi::String::New(env, base64)});
 
   return env.Null();
 }
