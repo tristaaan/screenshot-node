@@ -25,8 +25,15 @@ Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
   Napi::Function cb = info[4].As<Napi::Function>();
 
   IData rawData = getScreen(x, y, width, height);
-  std::cout<<sizeof rawData.byte <<std::endl;
-  Napi::Value buf = Napi::Buffer<UInt8>::New(env, rawData.byte, rawData.length);
+
+  std::string char_pointer = "你好sdasdasdsadsoidnsd";
+  std::cout << rawData.byte << char_pointer << std::endl;
+  std::cout<<strlen(rawData.byte)<<std::endl;
+  // std::vector<unsigned char> d = rawData.byte;
+  // size_t l = rawData.length;
+  Napi::Value buf = Napi::Buffer<char *>::New(env, &rawData.byte, strlen(rawData.byte));
+  // Napi::Value buf = Napi::ArrayBuffer::New(env, &rawData, length);
+
   cb.Call(env.Global(), {buf});
   return buf;
 }

@@ -6,7 +6,7 @@
 struct IData
 {
   unsigned int length;
-  UInt8 * byte;
+  char * byte;
 };
 
 IData getScreen(const int, const int, const int, const int);
