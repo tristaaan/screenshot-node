@@ -1,1 +1,1 @@
-module.exports = require('./build/Release/screenshot')
+module.exports = require('./build/Debug/screenshot')

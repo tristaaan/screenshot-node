@@ -1,40 +1,43 @@
-#include <nan.h>
+#include <napi.h>
+#include <iostream>
 #include "prtscn_windows.h"
-#include <stdlib.h>
 
-using namespace v8;
+Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
+{
+  Napi::Env env = info.Env();
 
-void Method(const FunctionCallbackInfo<Value>& args) {
-	Isolate* isolate = args.GetIsolate();
+  if (info.Length() < 5)
+  {
+    Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
+    return env.Null();
+  }
 
+  if (!info[0].IsNumber() || !info[1].IsNumber() || !info[2].IsNumber() || !info[3].IsNumber())
+  {
+    Napi::TypeError::New(env, "Wrong arguments").ThrowAsJavaScriptException();
+    return env.Null();
+  }
 
-	// Check number of arguments passed
-	if (args.Length() < 5) {
-		isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong number of arguments")));
-		return;
-	}
+  int x = info[0].As<Napi::Number>().Int32Value();
+  int y = info[1].As<Napi::Number>().Int32Value();
+  int width = info[2].As<Napi::Number>().Int32Value();
+  int height = info[3].As<Napi::Number>().Int32Value();
+  const char* str = info[4].As<Napi::String>().Utf8Value().data();
+  Napi::Function cb = info[5].As<Napi::Function>();
 
-	//Check the argument types
-	if (!args[0]->IsNumber() || !args[1]->IsNumber() || !args[2]->IsNumber() || !args[3]->IsNumber()) {
-		isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong arguments")));
-		return;
-	}
+//   IData rawData = getScreen(x, y, width, height);
+	getScreen(x, y, width, height, str);
 
-	int x = args[0]->NumberValue();
-	int y = args[1]->NumberValue();
-	int width =  args[2]->NumberValue();
-	int height = args[3]->NumberValue();
-
-	getScreen(x, y, width, height, *String::Utf8Value(args[4]));
-
-	//Performe the operation
-	Local<Function> cb = Local<Function>::Cast(args[5]);
-	Local<Value> argv[1] = {Null(isolate)};
-	cb->Call(Null(isolate), 1, argv);
+//   std::cout<<sizeof rawData.byte <<std::endl;
+//   Napi::Value buf = Napi::Buffer<UInt8>::New(env, rawData.byte, rawData.length);
+  cb.Call(env.Global(), {});
+  return env.Null();
 }
 
-void Init(Local<Object> exports, Local<Object> module) {
-	NODE_SET_METHOD(module, "exports", Method);
+Napi::Object Init(Napi::Env env, Napi::Object exports)
+{
+  exports.Set(Napi::String::New(env, "getScreenshotSync"), Napi::Function::New(env, getScreenshotSync));
+  return exports;
 }
 
-NODE_MODULE(screenshot, Init)
+NODE_API_MODULE(addon, Init)
