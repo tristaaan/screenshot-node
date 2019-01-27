@@ -1,1 +1,1 @@
-module.exports = require('./build/Debug/screenshot')
+module.exports = require('bindings')('screenshot')
