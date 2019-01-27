@@ -74,6 +74,7 @@ void getScreen(const int x, const int y, int W, int H, const char* path) {
 		wchar_t* pathName = new wchar_t[size];
 		size_t outSize;
 		mbstowcs_s(&outSize, pathName, size, path, size - 1);
+    std::cout<<path<<"pathname:"<<*pathName<<std::endl;
 		GetEncoderClsid(L"image/png", &clsid);
 		bitmap.Save(pathName, &clsid, NULL);
 

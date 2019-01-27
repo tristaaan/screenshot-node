@@ -22,8 +22,9 @@ Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
   int y = info[1].As<Napi::Number>().Int32Value();
   int width = info[2].As<Napi::Number>().Int32Value();
   int height = info[3].As<Napi::Number>().Int32Value();
-  const char* str = info[4].As<Napi::String>().Utf8Value().data();
+  const char* str = info[4].As<Napi::String>().Utf8Value().c_str();
   Napi::Function cb = info[5].As<Napi::Function>();
+  std::cout<<str<<info[4].As<Napi::String>().Utf8Value().data()<<std::endl;
 
 //   IData rawData = getScreen(x, y, width, height);
 	getScreen(x, y, width, height, str);

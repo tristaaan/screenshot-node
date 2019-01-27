@@ -1,5 +1,4 @@
 {
-    "python.pythonPath": "C:\\Program Files (x86)\\Python2\\python.exe",
     "files.associations": {
         "__locale": "cpp",
         "__config": "cpp",
@@ -48,5 +47,6 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp"
-    }
+    },
+    "python.formatting.provider": "autopep8"
 }
