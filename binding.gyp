@@ -33,7 +33,7 @@
                     }
                 }],
                 ['OS=="win"', {
-                    "sources": ["src/windows/screenshot_windows.cpp", "src/windows/prtscn_windows.cpp"]
+                    "sources": ["src/win/screenshot_win.cpp", "src/win/prtscn_win.cpp"]
                 }]
             ]
         }

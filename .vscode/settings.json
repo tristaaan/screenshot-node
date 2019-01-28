@@ -47,6 +47,5 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp"
-    },
-    "python.pythonPath": "/usr/bin/python"
+    }
 }

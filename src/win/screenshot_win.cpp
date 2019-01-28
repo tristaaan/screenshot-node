@@ -1,6 +1,6 @@
 #include <napi.h>
 #include <iostream>
-#include "prtscn_windows.h"
+#include "prtscn_win.h"
 
 Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
 {
@@ -22,12 +22,10 @@ Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
   int y = info[1].As<Napi::Number>().Int32Value();
   int width = info[2].As<Napi::Number>().Int32Value();
   int height = info[3].As<Napi::Number>().Int32Value();
-  const char* str = info[4].As<Napi::String>().Utf8Value().c_str();
-  Napi::Function cb = info[5].As<Napi::Function>();
-  std::cout<<str<<info[4].As<Napi::String>().Utf8Value().data()<<std::endl;
+  Napi::Function cb = info[4].As<Napi::Function>();
 
 //   IData rawData = getScreen(x, y, width, height);
-	getScreen(x, y, width, height, str);
+	getScreen(x, y, width, height);
 
 //   std::cout<<sizeof rawData.byte <<std::endl;
 //   Napi::Value buf = Napi::Buffer<UInt8>::New(env, rawData.byte, rawData.length);
