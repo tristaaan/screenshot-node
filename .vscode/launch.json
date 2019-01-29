@@ -11,7 +11,7 @@
       "program": "${workspaceFolder}/test.js"
     },
     {
-      "name": "gdb",
+      "name": "(lldb) Launch",
       "type": "cppdbg",
       "request": "launch",
       "preLaunchTask": "build",
@@ -23,22 +23,7 @@
       "cwd": "${workspaceFolder}",
       "environment": [],
       "externalConsole": false,
-      "osx": {
-        "MIMode": "lldb"
-      },
-      "windows": {
-        "type": "cppvsdbg",
-        "program": "C:\\Program Files\\nodejs\\node.exe",
-        "MIMode": "gdb",
-        "miDebuggerPath": "gdb.exe",
-        "setupCommands": [
-          {
-            "description": "Enable pretty-printing for gdb",
-            "text": "-enable-pretty-printing",
-            "ignoreFailures": true
-          }
-        ]
-      }
+      "MIMode": "lldb"
     }
   ]
 }
