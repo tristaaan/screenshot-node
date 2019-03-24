@@ -1,6 +1,8 @@
 #ifndef PRTSCN_WINDOWS_H_
 #define PRTSCN_WINDOWS_H_
+#include <iostream>
+#include <atlimage.h>
 
-void getScreen(const int, const int, int, int);
+std::string * getScreen(const int, const int, int, int);
 
 #endif

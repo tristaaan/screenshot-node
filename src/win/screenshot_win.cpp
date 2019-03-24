@@ -25,11 +25,11 @@ Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
   Napi::Function cb = info[4].As<Napi::Function>();
 
 //   IData rawData = getScreen(x, y, width, height);
-	getScreen(x, y, width, height);
+	std::string* a = getScreen(x, y, width, height);
 
-//   std::cout<<sizeof rawData.byte <<std::endl;
-//   Napi::Value buf = Napi::Buffer<UInt8>::New(env, rawData.byte, rawData.length);
-  cb.Call(env.Global(), {});
+  std::cout<< a->size() <<std::endl;
+  Napi::Value buf = Napi::Buffer<std::string>::New(env, a, a->size());
+  cb.Call(env.Global(), {buf});
   return env.Null();
 }
 
