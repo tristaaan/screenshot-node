@@ -1,12 +1,11 @@
 #include <napi.h>
-#include <iostream>
 #include "prtscn_osx.h"
 
 Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
 {
   Napi::Env env = info.Env();
 
-  if (info.Length() < 5)
+  if (info.Length() < 4)
   {
     Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
     return env.Null();
@@ -22,12 +21,9 @@ Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
   int y = info[1].As<Napi::Number>().Int32Value();
   int width = info[2].As<Napi::Number>().Int32Value();
   int height = info[3].As<Napi::Number>().Int32Value();
-  Napi::Function cb = info[4].As<Napi::Function>();
 
   IData rawData = getScreen(x, y, width, height);
-  std::cout<<sizeof rawData.byte <<std::endl;
   Napi::Value buf = Napi::Buffer<UInt8>::New(env, rawData.byte, rawData.length);
-  cb.Call(env.Global(), {buf});
   return buf;
 }
 

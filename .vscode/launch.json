@@ -15,10 +15,8 @@
       "type": "cppdbg",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "/usr/local/bin/node",
-      "args": [
-        "${workspaceFolder}/test.js"
-      ],
+      "program": "/Users/nashaofu/.nvm/versions/node/v10.16.0/bin/node",
+      "args": ["${workspaceFolder}/test.js"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],

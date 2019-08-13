@@ -22,7 +22,8 @@
                     'xcode_settings': {
                         'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
                         'OTHER_CFLAGS': [
-                            '-ObjC++'
+                            '-ObjC++',
+                            '-stdlib=libc++'
                         ]
                     },
                     "sources": ["src/osx/screenshot_osx.cpp", "src/osx/prtscn_osx.m"],
