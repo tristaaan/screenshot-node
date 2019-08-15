@@ -1,12 +1,11 @@
 #include <napi.h>
-#include <iostream>
 #include "prtscn_win.h"
 
 Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
 {
   Napi::Env env = info.Env();
 
-  if (info.Length() < 5)
+  if (info.Length() < 4)
   {
     Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
     return env.Null();
@@ -22,15 +21,10 @@ Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
   int y = info[1].As<Napi::Number>().Int32Value();
   int width = info[2].As<Napi::Number>().Int32Value();
   int height = info[3].As<Napi::Number>().Int32Value();
-  Napi::Function cb = info[4].As<Napi::Function>();
 
-//   IData rawData = getScreen(x, y, width, height);
-	std::string* a = getScreen(x, y, width, height);
-
-  std::cout<< a->size() <<std::endl;
-  Napi::Value buf = Napi::Buffer<std::string>::New(env, a, a->size());
-  cb.Call(env.Global(), {buf});
-  return env.Null();
+  IData rawData = getScreen(x, y, width, height);
+  Napi::Value buf = Napi::Buffer<UInt8>::New(env, rawData.byte, rawData.length);
+  return buf;
 }
 
 Napi::Object Init(Napi::Env env, Napi::Object exports)
