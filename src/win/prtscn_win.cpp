@@ -21,9 +21,9 @@ IData getScreen(const int x, const int y, const int width, const int height)
   for (int y = 0; y < height; y++) {
     for (int x = 0; x < width; x++, i += 4) {
       ptr = (uint8_t *) bmp.GetPixelAddress(x, y);
-      byteData[i] = ptr[0];
+      byteData[i] = ptr[2];
       byteData[i + 1] = ptr[1];
-      byteData[i + 2] = ptr[2];
+      byteData[i + 2] = ptr[0];
       byteData[i + 3] = 255;
     }
   }
