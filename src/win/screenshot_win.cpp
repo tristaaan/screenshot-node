@@ -23,7 +23,7 @@ Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
   int height = info[3].As<Napi::Number>().Int32Value();
 
   IData rawData = getScreen(x, y, width, height);
-  Napi::Value buf = Napi::Buffer<UInt8>::New(env, rawData.byte, rawData.length);
+  Napi::Value buf = Napi::Buffer<uint8_t>::New(env, rawData.byte, rawData.length);
   return buf;
 }
 

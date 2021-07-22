@@ -6,9 +6,9 @@
 struct IData
 {
   unsigned int length;
-  UInt8 *byte;
+  uint8_t *byte;
 };
 
-IData *getScreen(const int, const int, const int, const int);
+IData getScreen(const int, const int, const int, const int);
 
 #endif
