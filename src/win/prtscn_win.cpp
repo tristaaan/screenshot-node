@@ -8,8 +8,8 @@ IData getScreen(const int x, const int y, const int width, const int height)
   int nBitPerPixel = GetDeviceCaps(hdc, BITSPIXEL);
   CImage bmp;
   bmp.Create(width, height, nBitPerPixel);
-  BitBlt(bmp.GetDC(), 0, 0, width, height, hdc, 0, 0, SRCCOPY);
-  // 释放 DC句柄 // release DC handle 
+  BitBlt(bmp.GetDC(), 0, 0, width, height, hdc, x, y, SRCCOPY);
+  // 释放 DC句柄 // release DC handle
   ReleaseDC(NULL, hdc);
   // 释放图片上下文 // release picture context
   bmp.ReleaseDC();
