@@ -21,8 +21,9 @@ Napi::Value getScreenshotSync(const Napi::CallbackInfo &info)
   int y = info[1].As<Napi::Number>().Int32Value();
   int width = info[2].As<Napi::Number>().Int32Value();
   int height = info[3].As<Napi::Number>().Int32Value();
+  std::string profile = info[4].As<Napi::String>();
 
-  IData rawData = getScreen(x, y, width, height);
+  IData rawData = getScreen(x, y, width, height, profile);
   Napi::Value buf = Napi::Buffer<UInt8>::New(env, rawData.byte, rawData.length);
   return buf;
 }

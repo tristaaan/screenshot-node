@@ -27,7 +27,7 @@ public:
 bool allocated = false;
 UInt8 *data = NULL;
 
-IData getScreen(const int x, const int y, const int width, const int height)
+IData getScreen(const int x, const int y, const int width, const int height, const std::string colorSpace)
 {
 	CGRect rect = CGRectMake(x, y, width, height);
 
@@ -46,7 +46,13 @@ IData getScreen(const int x, const int y, const int width, const int height)
 
 	NSBitmapImageRep * ns_image = [[NSBitmapImageRep alloc] initWithCGImage: imageRef];
 	struct ns_object_releaser ns_image_releaser(ns_image);
-	NSColorSpace *targetColorSpace = [NSColorSpace sRGBColorSpace];
+	// https://developer.apple.com/documentation/appkit/nscolorspace?language=objc
+	NSColorSpace *targetColorSpace;
+	if (colorSpace == "srgb") {
+		targetColorSpace = [NSColorSpace sRGBColorSpace];
+	} else { // else if (colorSpace == 'adobergb')
+		targetColorSpace = [NSColorSpace adobeRGB1998ColorSpace];
+	}
 
 	const size_t src_width = CGImageGetWidth(imageRef);
 	const size_t src_height = CGImageGetHeight(imageRef);

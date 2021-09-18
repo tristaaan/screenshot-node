@@ -2,6 +2,7 @@
 #define PRTSCN_OSX_H_
 #include <Foundation/Foundation.h>
 #include <CoreServices/CoreServices.h>
+#include <string>
 
 struct IData
 {
@@ -9,6 +10,6 @@ struct IData
   UInt8 *byte;
 };
 
-IData getScreen(const int, const int, const int, const int);
+IData getScreen(const int, const int, const int, const int, const std::string);
 
 #endif
