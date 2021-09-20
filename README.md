@@ -1,3 +1,15 @@
+# screenshot-node fork
+Changes on this fork:
+- The captured region is stored in memory and returned in a `Uint8Array` via the method `getScreenshotSync(x, y, width, height, colorSpace)`.
+- `colorSpace` paramter returns color in sRGB or Adobe RGB on Windows and Mac.
+
+Caveats of this fork:
+- Completely untested on Linux
+- Minimally tested on Windows 10, it was developed with the intention of only capturing a small region of the screen (under 30x30 pixels )and the Windows methods used here may be inefficient on larger areas.
+
+Original README included below
+
+---
 # screenshot-node [![npm](https://img.shields.io/npm/dt/screenshot-node.svg?style=flat-square)](https://www.npmjs.com/package/screenshot-node)
 Takes a screenshot of selected area and saves it to disk.
 
