@@ -32,7 +32,27 @@
                 [
                     "OS==\"win\"",
                     {
-                        "sources": ["src/win/screenshot_win.cpp", "src/win/prtscn_win.cpp"]
+                        "msvs_settings": {
+                            "VCCLCompilerTool": {
+                                "ExceptionHandling": 1
+                            }
+                        },
+                        "sources": ["src/win/screenshot_win.cpp", "src/win/prtscn_win.cpp"],
+                        "libraries": [
+                            "<(module_root_dir)/../Little-CMS/bin/lcms2.lib",
+                            # "<(module_root_dir)/../Little-CMS/Lib/MS/lcms2_static.lib"
+                        ],
+                        "include_dirs": [
+                            "<(module_root_dir)/../Little-CMS/include"
+                        ],
+                        "copies": [
+                            {
+                                "destination": "<(module_root_dir)/build/Release",
+                                "files": [
+                                    "<(module_root_dir)/../Little-CMS/bin/lcms2.dll"
+                                ]
+                            }
+                        ]
                     }
                 ]
             ]

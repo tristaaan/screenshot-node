@@ -30,6 +30,6 @@
   "gypfile": true,
   "dependencies": {
     "bindings": "^1.4.0",
-    "node-addon-api": "^1.6.2"
+    "node-addon-api": "^4.2.0"
   }
 }
